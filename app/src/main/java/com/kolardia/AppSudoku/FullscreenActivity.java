@@ -219,7 +219,7 @@ public class FullscreenActivity extends Activity{
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()){
             case R.id.ustawienia:
-                startActivity(new Intent(this, Preference.class));
+                startActivity(new Intent(this, Ustawienia.class));
                 return true;
         }
 
