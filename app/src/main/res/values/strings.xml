@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Aplikacja sudoku</string>
+
+    <string name="dummy_button_kontynuluj">Kontynuluj</string>
+    <string name="dummy_button_nowa_gra">Nowa Gra</string>
+    <string name="dummy_button_informacje">Informacje</string>
+    <string name="dummy_button_wyjscie">Wyjscie</string>
+    <string name="dummy_content">ZAGRAJ\nW SUDOKU</string>
+    <string name="tytul_ustawienia">Ustawienia</string>
+    <string name="etykieta_informacje">Informacje</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="tekst_informacje">Sudoku jest to łamigłówka, której celem jest wypełnienie diagramu 9 × 9 w taki sposób, aby w każdym wierszu, w każdej kolumnie i w każdym z dziewięciu pogrubionych kwadratów 3 × 3 (zwanych „blokami” lub „podkwadratami”) znalazło się po jednej cyfrze od 1 do 9. </string>
+    <string name="nowa_gra">Poziom trudnosci</string>
+</resources>
