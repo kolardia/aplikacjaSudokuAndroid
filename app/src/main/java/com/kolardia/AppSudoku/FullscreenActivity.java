@@ -11,9 +11,14 @@ import android.os.Handler;
 import android.preference.Preference;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
+
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -28,6 +33,30 @@ public class FullscreenActivity extends Activity{
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
+
+    private WidokPuzzle widokPuzzle;
+    private static final String ZNACZNIK = "Sudoku";
+
+
+    private void otwurzDialogNowaGra(){
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.tytul_nowa_gra)
+                .setItems(R.array.trudnosc,
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialoginterface, int i){
+                                uruchomGre(i);
+                            }
+                        }
+                        )
+                .show();
+    }
+
+    private void uruchomGre(int i){
+        Intent intentcja = new Intent(FullscreenActivity.this, Gra.class);
+        intentcja.putExtra(Gra.TRUDNOSC_KLUCZ, i);
+        startActivity(intentcja);
+    }
+
 
     private static final boolean AUTO_HIDE = true;
 
@@ -118,6 +147,8 @@ public class FullscreenActivity extends Activity{
 
                 {
                     mSystemUiHider.toggle();
+
+
                     Intent intent = new Intent(getApplicationContext(), Informacje.class);
                     startActivity(intent);
                     /*Intent intent = new Intent(context, Informacje.class);
@@ -133,7 +164,6 @@ public class FullscreenActivity extends Activity{
 
             {
                 mSystemUiHider.show();
-
             }
 
         }
@@ -178,7 +208,14 @@ public class FullscreenActivity extends Activity{
                         case R.id.dummy_button_wyjscie:
                             finish();
                             break;
+                        case R.id.dummy_button_nowa_gra:
+                            otwurzDialogNowaGra();
+                            break;
 
+                        case R.id.dummy_button_kontynuacja:
+                            Intent intent = new Intent(getApplicationContext(), Gra.class);
+                            startActivity(intent);
+                            break;
 
                     }
                 }
