@@ -30,16 +30,24 @@ public class WidokPuzzle extends View {
     private int wybY;
     private final Rect wybProst = new Rect();
 
-   @Override
+    @Override
     protected void onSizeChanged(int s, int w, int staras, int staraw) {
         szerokosc = s / 9f;
         wysokosc = w / 9f;
         wezProst(wybX, wybY, wybProst);
-        super.onSizeChanged(s, w, staras, staraw);
+        //  super.onSizeChanged(s, w, staras, staraw);
     }
 
     private void wezProst(int x, int y, Rect prost) {
         prost.set((int) (x * szerokosc), (int) (y * wysokosc), (int) (x * szerokosc + szerokosc), (int) (y * wysokosc + wysokosc));
+    }
+
+    private void wybierz(int x, int y) {
+        invalidate(wybProst);
+        wybX = Math.min(Math.max(x, 0), 8);
+        wybY = Math.min(Math.max(y, 0), 8);
+        wezProst(wybX, wybY, wybProst);
+        invalidate(wybProst);
     }
 
     @Override
@@ -60,22 +68,22 @@ public class WidokPuzzle extends View {
 
         // rysuje siatke
         for (int i = 0; i < 9; i++) {
-            plotno.drawLine(0,                  i * wysokosc,     getWidth(),   i * wysokosc,                   ciemny);
-            plotno.drawLine(0,                  i * wysokosc + 1, getWidth(),   i * wysokosc + 1,               ciemny);
-            plotno.drawLine(i * szerokosc,      0,                              i * szerokosc,     getHeight(), ciemny);
-            plotno.drawLine(i * szerokosc + 1,  0,                              i * szerokosc + 1, getHeight(), ciemny);
+            plotno.drawLine(0, i * wysokosc, getWidth(), i * wysokosc, ciemny);
+            plotno.drawLine(0, i * wysokosc + 1, getWidth(), i * wysokosc + 1, ciemny);
+            plotno.drawLine(i * szerokosc, 0, i * szerokosc, getHeight(), ciemny);
+            plotno.drawLine(i * szerokosc + 1, 0, i * szerokosc + 1, getHeight(), ciemny);
         }
         // rysuje bloki
         for (int i = 0; i < 9; i++) {
             if (i % 3 != 0)
                 continue;
-                plotno.drawLine(0,                  i * wysokosc,     getWidth(),   i * wysokosc,                   ciemny);
-                plotno.drawLine(0,                  i * wysokosc + 1, getWidth(),   i * wysokosc + 1,               ciemny);
-                plotno.drawLine(i * szerokosc,      0,                              i * szerokosc,     getHeight(), ciemny);
-                plotno.drawLine(i * szerokosc + 1,  0,                              i * szerokosc + 1, getHeight(), ciemny);
+            plotno.drawLine(0, i * wysokosc, getWidth(), i * wysokosc, ciemny);
+            plotno.drawLine(0, i * wysokosc + 1, getWidth(), i * wysokosc + 1, ciemny);
+            plotno.drawLine(i * szerokosc, 0, i * szerokosc, getHeight(), ciemny);
+            plotno.drawLine(i * szerokosc + 1, 0, i * szerokosc + 1, getHeight(), ciemny);
         }
-    }
-/*
+
+
         Paint pierwszy_plan = new Paint(Paint.ANTI_ALIAS_FLAG);
         pierwszy_plan.setColor(getResources().getColor(R.color.puzzle_pierwszy_plan));
         pierwszy_plan.setStyle(Paint.Style.FILL);
@@ -101,11 +109,12 @@ public class WidokPuzzle extends View {
         int c[] = {
                 getResources().getColor(R.color.puzzle_podpowiedz_0),
                 getResources().getColor(R.color.puzzle_podpowiedz_1),
-                getResources().getColor(R.color.puzzle_podpowiedz_2), };
+                getResources().getColor(R.color.puzzle_podpowiedz_2),};
         Rect r = new Rect();
-        for(int i = 0; i < 9; i++){
-            for(int j = 0; j < 9; j++){
-                if (pozostaleruchy < c.length){
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                int pozostaleruchy = 9 - gra.wezUzytePola(i, j).length;
+                if (pozostaleruchy < c.length) {
                     wezProst(i, j, r);
                     podpowiedz.setColor(c[pozostaleruchy]);
                     plotno.drawRect(r, podpowiedz);
@@ -121,7 +130,7 @@ public class WidokPuzzle extends View {
             return super.onTouchEvent(zdarzenie);
         wybierz((int) (zdarzenie.getX() / szerokosc), (int) (zdarzenie.getY() / wysokosc));
 
-        gra.pokazKlawiatureLubBlad(wybX, wybY);
+        gra.pokazKlaviatureLubBlad(wybX, wybY);
         return true;
     }
 
@@ -132,7 +141,6 @@ public class WidokPuzzle extends View {
             startAnimation(AnimationUtils.loadAnimation(gra, R.anim.wstrzasy));
         }
     }
-
 
 
     @Override
@@ -153,30 +161,44 @@ public class WidokPuzzle extends View {
                 return super.onKeyDown(kodKlaw, zdarzenie);
 
             case KeyEvent.KEYCODE_0:
-            case KeyEvent.KEYCODE_SPACE: ustawWybranePole(0); break;
-            case KeyEvent.KEYCODE_1: ustawWybranePole(1); break;
-            case KeyEvent.KEYCODE_2: ustawWybranePole(2); break;
-            case KeyEvent.KEYCODE_3: ustawWybranePole(3); break;
-            case KeyEvent.KEYCODE_4: ustawWybranePole(4); break;
-            case KeyEvent.KEYCODE_5: ustawWybranePole(5); break;
-            case KeyEvent.KEYCODE_6: ustawWybranePole(6); break;
-            case KeyEvent.KEYCODE_7: ustawWybranePole(7); break;
-            case KeyEvent.KEYCODE_8: ustawWybranePole(8); break;
-            case KeyEvent.KEYCODE_9: ustawWybranePole(9); break;
+            case KeyEvent.KEYCODE_SPACE:
+                ustawWybranePole(0);
+                break;
+            case KeyEvent.KEYCODE_1:
+                ustawWybranePole(1);
+                break;
+            case KeyEvent.KEYCODE_2:
+                ustawWybranePole(2);
+                break;
+            case KeyEvent.KEYCODE_3:
+                ustawWybranePole(3);
+                break;
+            case KeyEvent.KEYCODE_4:
+                ustawWybranePole(4);
+                break;
+            case KeyEvent.KEYCODE_5:
+                ustawWybranePole(5);
+                break;
+            case KeyEvent.KEYCODE_6:
+                ustawWybranePole(6);
+                break;
+            case KeyEvent.KEYCODE_7:
+                ustawWybranePole(7);
+                break;
+            case KeyEvent.KEYCODE_8:
+                ustawWybranePole(8);
+                break;
+            case KeyEvent.KEYCODE_9:
+                ustawWybranePole(9);
+                break;
             case KeyEvent.KEYCODE_ENTER:
             case KeyEvent.KEYCODE_DPAD_CENTER:
-                gra.pokazKlawiatureLubBlad(wybX, wybY);
+                gra.pokazKlaviatureLubBlad(wybX, wybY);
                 break;
         }
         return true;
     }
 
-    private void wybierz(int x, int y){
-        invalidate(wybProst);
-        wybX = Math.min(Math.max(x, 0), 8);
-        wybY = Math.min(Math.max(y,0),8);
-        wezProst(wybX, wybY, wybProst);
-        invalidate(wybProst);
-    }
-*/
 }
+
+

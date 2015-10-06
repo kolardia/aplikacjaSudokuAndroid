@@ -21,6 +21,7 @@ public class Gra extends Activity {
 
     private WidokPuzzle widokPuzzle;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class Gra extends Activity {
                 puz = puzzeLatwe;
                 break;
         }
+
         return odZnakowPuzzle(puz);
     }
 
@@ -147,7 +149,6 @@ public class Gra extends Activity {
             }
 
 
-
         protected void pokazKlaviatureLubBlad(int x, int y){
             int pola[] = wezUzytePola(x, y);
             if(pola.length == 9){
@@ -158,9 +159,21 @@ public class Gra extends Activity {
                 Dialog v = new Klawiatura(this, pola, widokPuzzle);
                 v.show();
             }
+
         }
 
-
+        protected boolean ustawPoleJesliPoprawne(int x, int y, int wartosc){
+            int pola[] = wezUzytePola(x,y);
+            if(wartosc != 0){
+                for(int pole : pola){
+                    if (pole == wartosc)
+                        return false;
+                }
+            }
+            ustawPole(x, y, wartosc);
+            obliczUzytePola();
+            return true;
+        }
 
 
         static private String doZnakowPuzzle(int[] puz){
