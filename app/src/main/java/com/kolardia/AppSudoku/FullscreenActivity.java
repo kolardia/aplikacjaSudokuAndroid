@@ -213,8 +213,8 @@ public class FullscreenActivity extends Activity{
                             break;
 
                         case R.id.dummy_button_kontynuacja:
-                            Intent intent = new Intent(getApplicationContext(), Gra.class);
-                            startActivity(intent);
+                            /*Intent intent = new Intent(getApplicationContext(), Gra.class);
+                            startActivity(intent);*/
                             break;
 
                     }

@@ -14,7 +14,6 @@ import android.view.animation.AnimationUtils;
 
 public class WidokPuzzle extends View {
 
-    public static final String ZNACZNIK = "Sudku";
     private final Gra gra;
 
     public WidokPuzzle(Context kontekst) {
@@ -26,8 +25,8 @@ public class WidokPuzzle extends View {
 
     private float szerokosc;
     private float wysokosc;
-    private int wybX;
-    private int wybY;
+    protected int wybX;
+    protected int wybY;
     private final Rect wybProst = new Rect();
 
     @Override
@@ -35,7 +34,7 @@ public class WidokPuzzle extends View {
         szerokosc = s / 9f;
         wysokosc = w / 9f;
         wezProst(wybX, wybY, wybProst);
-        //  super.onSizeChanged(s, w, staras, staraw);
+        super.onSizeChanged(s, w, staras, staraw);
     }
 
     private void wezProst(int x, int y, Rect prost) {
@@ -83,6 +82,11 @@ public class WidokPuzzle extends View {
             plotno.drawLine(i * szerokosc + 1, 0, i * szerokosc + 1, getHeight(), ciemny);
         }
 
+        Paint zaznaczony = new Paint();
+        zaznaczony.setColor(getResources().getColor(R.color.puzzle_zaznaczony));
+        plotno.drawRect(wybProst, zaznaczony);
+
+
 
         Paint pierwszy_plan = new Paint(Paint.ANTI_ALIAS_FLAG);
         pierwszy_plan.setColor(getResources().getColor(R.color.puzzle_pierwszy_plan));
@@ -101,15 +105,15 @@ public class WidokPuzzle extends View {
             }
         }
 
-        Paint zaznaczony = new Paint();
-        zaznaczony.setColor(getResources().getColor(R.color.puzzle_zaznaczony));
-        plotno.drawRect(wybProst, zaznaczony);
+
 
         Paint podpowiedz = new Paint();
         int c[] = {
                 getResources().getColor(R.color.puzzle_podpowiedz_0),
                 getResources().getColor(R.color.puzzle_podpowiedz_1),
-                getResources().getColor(R.color.puzzle_podpowiedz_2),};
+                getResources().getColor(R.color.puzzle_podpowiedz_2),
+        };
+
         Rect r = new Rect();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -121,27 +125,7 @@ public class WidokPuzzle extends View {
                 }
             }
         }
-
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent zdarzenie) {
-        if (zdarzenie.getAction() != MotionEvent.ACTION_DOWN)
-            return super.onTouchEvent(zdarzenie);
-        wybierz((int) (zdarzenie.getX() / szerokosc), (int) (zdarzenie.getY() / wysokosc));
-
-        gra.pokazKlaviatureLubBlad(wybX, wybY);
-        return true;
-    }
-
-    public void ustawWybranePole(int pole) {
-        if (gra.ustawPoleJesliPoprawne(wybX, wybY, pole)) {
-            invalidate();
-        } else {
-            startAnimation(AnimationUtils.loadAnimation(gra, R.anim.wstrzasy));
-        }
-    }
-
 
     @Override
     public boolean onKeyDown(int kodKlaw, KeyEvent zdarzenie) {
@@ -159,7 +143,6 @@ public class WidokPuzzle extends View {
                 wybierz(wybX + 1, wybY);
             default:
                 return super.onKeyDown(kodKlaw, zdarzenie);
-
             case KeyEvent.KEYCODE_0:
             case KeyEvent.KEYCODE_SPACE:
                 ustawWybranePole(0);
@@ -196,8 +179,30 @@ public class WidokPuzzle extends View {
                 gra.pokazKlaviatureLubBlad(wybX, wybY);
                 break;
         }
+
         return true;
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent zdarzenie) {
+        if (zdarzenie.getAction() != MotionEvent.ACTION_DOWN)
+            return super.onTouchEvent(zdarzenie);
+        wybierz((int) (zdarzenie.getX() / szerokosc), (int) (zdarzenie.getY() / wysokosc));
+
+        gra.pokazKlaviatureLubBlad(wybX, wybY);
+        return true;
+    }
+
+    public void ustawWybranePole(int pole) {
+        if (gra.ustawPoleJesliPoprawne(wybX, wybY, pole)) {
+            invalidate();
+        } else {
+            startAnimation(AnimationUtils.loadAnimation(gra, R.anim.wstrzasy));
+        }
+    }
+
+
+
 
 }
 

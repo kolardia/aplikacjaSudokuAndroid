@@ -12,7 +12,6 @@ import android.view.KeyEvent;
  * Created by Kolardia on 2015-10-05.
  */
 public class Klawiatura extends Dialog {
-    protected static final String ZNACZNIK = "Sudoku";
 
     private final View klawisze[] = new View[9];
     private View klawiatura;
@@ -38,11 +37,6 @@ public class Klawiatura extends Dialog {
         super(kontekst);
         this.uzyte = uzyte;
         this.widokPuzzle = widokPuzzle;
-    }
-
-    private void zwrocWynik(int pole) {
-        //widokPuzzle.ustawWybranePole(pole);
-        dismiss();
     }
 
     private void ustawObiektyNasuchujace() {
@@ -128,5 +122,9 @@ public class Klawiatura extends Dialog {
             return false;
         }
         return true;
+    }
+    private void zwrocWynik(int pole){
+        widokPuzzle.ustawWybranePole(pole);
+        dismiss();
     }
 }
