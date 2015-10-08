@@ -9,7 +9,7 @@ import android.view.KeyEvent;
 
 
 /**
- * Created by Kolardia on 2015-10-05.
+ * Created by Kolardia
  */
 public class Klawiatura extends Dialog {
 
@@ -49,13 +49,7 @@ public class Klawiatura extends Dialog {
                                            }
             );
         }
-        klawiatura.setOnClickListener(new View.OnClickListener() {
-                                          public void onClick(View v) {
-                                              zwrocWynik(0);
-                                          }
-                                      }
 
-        );
     }
 
 
@@ -74,49 +68,6 @@ public class Klawiatura extends Dialog {
 
     }
 
-    @Override
-    public boolean onKeyDown(int kodKlaw, KeyEvent zdarzenie) {
-        int pole = 0;
-        switch (kodKlaw) {
-            case KeyEvent.KEYCODE_0:
-            case KeyEvent.KEYCODE_SPACE:
-                pole = 0;
-                break;
-            case KeyEvent.KEYCODE_1:
-                pole = 1;
-                break;
-            case KeyEvent.KEYCODE_2:
-                pole = 2;
-                break;
-            case KeyEvent.KEYCODE_3:
-                pole = 3;
-                break;
-            case KeyEvent.KEYCODE_4:
-                pole = 4;
-                break;
-            case KeyEvent.KEYCODE_5:
-                pole = 5;
-                break;
-            case KeyEvent.KEYCODE_6:
-                pole = 6;
-                break;
-            case KeyEvent.KEYCODE_7:
-                pole = 7;
-                break;
-            case KeyEvent.KEYCODE_8:
-                pole = 8;
-                break;
-            case KeyEvent.KEYCODE_9:
-                pole = 9;
-                break;
-            default:
-                return super.onKeyDown(kodKlaw, zdarzenie);
-        }
-        if (isValid(pole)) {
-            zwrocWynik(pole);
-        }
-    return true;
-    }
     private boolean isValid(int pole){
         for(int t : uzyte) {
             return false;

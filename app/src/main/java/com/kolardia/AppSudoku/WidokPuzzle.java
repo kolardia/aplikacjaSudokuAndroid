@@ -14,7 +14,7 @@ import android.view.animation.AnimationUtils;
 
 public class WidokPuzzle extends View {
 
-    private final Gra gra;
+   private final Gra gra;
 
     public WidokPuzzle(Context kontekst) {
         super(kontekst);
@@ -125,62 +125,6 @@ public class WidokPuzzle extends View {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean onKeyDown(int kodKlaw, KeyEvent zdarzenie) {
-        switch (kodKlaw) {
-            case KeyEvent.KEYCODE_DPAD_UP:
-                wybierz(wybX, wybY - 1);
-                break;
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                wybierz(wybX, wybY + 1);
-                break;
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                wybierz(wybX - 1, wybY);
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                wybierz(wybX + 1, wybY);
-            default:
-                return super.onKeyDown(kodKlaw, zdarzenie);
-            case KeyEvent.KEYCODE_0:
-            case KeyEvent.KEYCODE_SPACE:
-                ustawWybranePole(0);
-                break;
-            case KeyEvent.KEYCODE_1:
-                ustawWybranePole(1);
-                break;
-            case KeyEvent.KEYCODE_2:
-                ustawWybranePole(2);
-                break;
-            case KeyEvent.KEYCODE_3:
-                ustawWybranePole(3);
-                break;
-            case KeyEvent.KEYCODE_4:
-                ustawWybranePole(4);
-                break;
-            case KeyEvent.KEYCODE_5:
-                ustawWybranePole(5);
-                break;
-            case KeyEvent.KEYCODE_6:
-                ustawWybranePole(6);
-                break;
-            case KeyEvent.KEYCODE_7:
-                ustawWybranePole(7);
-                break;
-            case KeyEvent.KEYCODE_8:
-                ustawWybranePole(8);
-                break;
-            case KeyEvent.KEYCODE_9:
-                ustawWybranePole(9);
-                break;
-            case KeyEvent.KEYCODE_ENTER:
-            case KeyEvent.KEYCODE_DPAD_CENTER:
-                gra.pokazKlaviatureLubBlad(wybX, wybY);
-                break;
-        }
-
-        return true;
     }
 
     @Override
