@@ -41,12 +41,13 @@ public class Ustawienia extends PreferenceActivity {
      */
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
 
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
         setupSimplePreferencesScreen();
+
+
     }
 
     /**
@@ -72,12 +73,12 @@ public class Ustawienia extends PreferenceActivity {
         // Add 'data and sync' preferences, and a corresponding header.
         fakeHeader = new PreferenceCategory(this);
         getPreferenceScreen().addPreference(fakeHeader);
-
+        //AKTUALIZACJA
         // Bind the summaries of EditText/List/Dialog/Ringtone preferences to
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
+        //bindPreferenceSummaryToValue(findPreference("key_gracz"));
         bindPreferenceSummaryToValue(findPreference("key_gracz"));
-
 
     }
 
@@ -89,7 +90,7 @@ public class Ustawienia extends PreferenceActivity {
         return isXLargeTablet(this) && !isSimplePreferences(this);
     }
 
-    /**
+    /**EKRAN
      * Helper method to determine if the device has an extra-large screen. For
      * example, 10" tablets are extra-large.
      */
@@ -98,7 +99,7 @@ public class Ustawienia extends PreferenceActivity {
                 & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
-    /**
+    /**UPROSZCZENIA
      * Determines whether the simplified settings UI should be shown. This is
      * true if this is forced via {@link #ALWAYS_SIMPLE_PREFS}, or the device
      * doesn't have newer APIs like {@link PreferenceFragment}, or the device
@@ -120,9 +121,9 @@ public class Ustawienia extends PreferenceActivity {
         if (!isSimplePreferences(this)) {
             loadHeadersFromResource(R.xml.pref_general, target);
         }
-    }
+        }
 
-    /**
+    /**AKTUALIZACJA
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
@@ -130,13 +131,17 @@ public class Ustawienia extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
+            String stringDupa = value.toString();
+
+            if(preference instanceof ListPreference){
+                ListPreference listPreference = (ListPreference) preference;
+            }
 
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
                 ListPreference listPreference = (ListPreference) preference;
                 int index = listPreference.findIndexOfValue(stringValue);
-
                 // Set the summary to reflect the new value.
                 preference.setSummary(
                         index >= 0
@@ -149,6 +154,8 @@ public class Ustawienia extends PreferenceActivity {
                 if (TextUtils.isEmpty(stringValue)) {
                     // Empty values correspond to 'silent' (no ringtone).
                     preference.setSummary(R.string.pref_ringtone_silent);
+
+
 
                 } else {
                     Ringtone ringtone = RingtoneManager.getRingtone(
@@ -201,6 +208,7 @@ public class Ustawienia extends PreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class GeneralPreferenceFragment extends PreferenceFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -210,10 +218,15 @@ public class Ustawienia extends PreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("key_gracz"));
-            bindPreferenceSummaryToValue(findPreference("key_muzyka"));
+
             bindPreferenceSummaryToValue(findPreference("key_podpowiedzi"));
         }
+
+        public static boolean wezPodpowiedzi (Context kontekst){
+            return PreferenceManager.getDefaultSharedPreferences(kontekst)
+                    .getBoolean("key_podpowiedzi", true);
+        }
+
     }
 
 

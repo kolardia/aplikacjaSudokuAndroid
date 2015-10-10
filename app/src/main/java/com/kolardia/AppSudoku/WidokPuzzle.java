@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.preference.Preference;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,8 +15,7 @@ import android.view.animation.AnimationUtils;
 
 public class WidokPuzzle extends View {
 
-   private final Gra gra;
-
+    private final Gra gra;
     public WidokPuzzle(Context kontekst) {
         super(kontekst);
         this.gra = (Gra) kontekst;
@@ -87,7 +87,6 @@ public class WidokPuzzle extends View {
         plotno.drawRect(wybProst, zaznaczony);
 
 
-
         Paint pierwszy_plan = new Paint(Paint.ANTI_ALIAS_FLAG);
         pierwszy_plan.setColor(getResources().getColor(R.color.puzzle_pierwszy_plan));
         pierwszy_plan.setStyle(Paint.Style.FILL);
@@ -106,7 +105,6 @@ public class WidokPuzzle extends View {
         }
 
 
-
         Paint podpowiedz = new Paint();
         int c[] = {
                 getResources().getColor(R.color.puzzle_podpowiedz_0),
@@ -121,11 +119,14 @@ public class WidokPuzzle extends View {
                 if (pozostaleruchy < c.length) {
                     wezProst(i, j, r);
                     podpowiedz.setColor(c[pozostaleruchy]);
-                    plotno.drawRect(r, podpowiedz);
+                    if (Ustawienia.GeneralPreferenceFragment.wezPodpowiedzi(getContext())) {
+                        plotno.drawRect(r, podpowiedz);
+                    }
                 }
             }
         }
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent zdarzenie) {

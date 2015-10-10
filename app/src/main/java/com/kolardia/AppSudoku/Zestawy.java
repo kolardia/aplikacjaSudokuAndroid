@@ -7,7 +7,6 @@ import java.util.TreeMap;
 
 /**
  * Created by Kolardia
- *
  * Listy dla trzech poziomów gry
  */
 public class Zestawy extends Activity{

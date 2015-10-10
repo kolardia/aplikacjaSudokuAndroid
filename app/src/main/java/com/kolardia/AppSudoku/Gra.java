@@ -41,7 +41,8 @@ public class Gra extends Activity {
 
     }
 
-    /******************************* class WidokPuzzle, class Zestawy (Generowanie planszy poziomów)
+    /************************************************************* class WidokPuzzle, class Zestawy
+     * Generowanie planszy poziomów
      */
 
     private int[] wezPuzzle ( int trud){
