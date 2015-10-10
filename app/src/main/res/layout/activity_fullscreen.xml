@@ -22,9 +22,9 @@
             android:background="@color/black_overlay" android:orientation="horizontal"
             tools:ignore="UselessParent">
 
-            <Button android:id="@+id/dummy_button_kontynuacja" style="?metaButtonBarButtonStyle"
+            <Button android:id="@+id/dummy_button_informacja" style="?metaButtonBarButtonStyle"
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="5" android:text="@string/dummy_button_kontynuluj" />
+                android:layout_weight="5" android:text="@string/dummy_button_informacja" />
 
             <Button android:id="@+id/dummy_button_nowa_gra" style="?metaButtonBarButtonStyle"
                 android:layout_width="0dp" android:layout_height="wrap_content"

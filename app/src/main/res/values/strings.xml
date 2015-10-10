@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Aplikacja sudoku</string>
 
-    <string name="dummy_button_kontynuluj">Kontynuluj</string>
+    <string name="dummy_button_informacja">Informacja</string>
     <string name="dummy_button_nowa_gra">Nowa Gra</string>
     <string name="dummy_button_informacje">Informacje</string>
     <string name="dummy_button_wyjscie">Wyjscie</string>

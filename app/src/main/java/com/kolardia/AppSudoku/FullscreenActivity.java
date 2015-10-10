@@ -173,7 +173,7 @@ public class FullscreenActivity extends Activity{
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button_nowa_gra).setOnTouchListener(mDelayHideTouchListener);
-        findViewById(R.id.dummy_button_kontynuacja).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.dummy_button_informacja).setOnTouchListener(mDelayHideTouchListener);
         findViewById(R.id.dummy_button_wyjscie).setOnTouchListener(mDelayHideTouchListener);
     }
    /* protected void onStop(){
@@ -212,9 +212,9 @@ public class FullscreenActivity extends Activity{
                             otwurzDialogNowaGra();
                             break;
 
-                        case R.id.dummy_button_kontynuacja:
-                            /*Intent intent = new Intent(getApplicationContext(), Gra.class);
-                            startActivity(intent);*/
+                        case R.id.dummy_button_informacja:
+                            Intent intent = new Intent(getApplicationContext(), Informacje.class);
+                            startActivity(intent);
                             break;
 
                     }
